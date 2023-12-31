@@ -16,8 +16,6 @@ export default function Search() {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [addCollectionTargetWord, setAddCollectionTargetWord] = useState<Word>({});
 
-
-
   function onChangeCondition(event: ChangeEvent<HTMLInputElement>): void {
     setCondition(event.target.value);
   }
