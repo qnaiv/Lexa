@@ -82,7 +82,7 @@ export default function Search() {
                               <p className="break-all text-sm">{item.meaning}</p>
                             </div>
                             <div className="flex-none w-16">
-                              <a className="text-sm text-blue-500" href={item.url} target="_blank">{item.dictionary}</a>
+                              <a className="dictionary-link" href={item.url} target="_blank">{item.dictionary}</a>
                               <p onClick={() => onClickAddCollectionButton(item)}>
                                 <HiOutlineBookmark className={"mt-2"} size={20} />
                               </p>

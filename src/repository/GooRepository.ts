@@ -1,4 +1,5 @@
 import { DICTIONARY, PROXY_URL } from '@/app/consts';
+import { Word } from '@/app/types';
 import * as cheerio from 'cheerio';
 
 export default class GooRepository {
@@ -13,7 +14,7 @@ export default class GooRepository {
         ' - goo国語辞書は30万9千件語以上を収録。政治・経済・医学・ITなど、最新用語の追加も定期的に行っています。',
     ]
 
-    async search(query: string): Promise<any> {
+    async search(query: string): Promise<Word> {
         const searchUrl = this.url + query;
 
         const response = await fetch(PROXY_URL + searchUrl);

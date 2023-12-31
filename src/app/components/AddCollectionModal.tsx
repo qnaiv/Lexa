@@ -4,6 +4,8 @@ import { Card, ListGroup, Modal } from "flowbite-react"
 import { Word } from "../types"
 import { useRecoilState } from "recoil";
 import { collectionState } from "../state/collectionState";
+import Link from "next/link";
+import WordCard from "./WordCard";
 
 interface PageProps {
     targetWord: Word,
@@ -43,19 +45,7 @@ export default function collectionDetailComponent({ targetWord, showModal, setSh
                 <Modal.Body>
                     {
                         <div>
-                            <Card className="bg-neutral-50">
-                                {/* <h1 className="text-xl">
-                                    {targetWord.word}
-                                </h1> */}
-                                {/* <h3 className="text-sm text-slate-500"> */}
-                                <h3 className="text-sm">
-                                    {targetWord.dictionary}
-                                </h3>
-                                <p className="text-xs">
-                                    {targetWord.meaning}
-                                </p>
-
-                            </Card>
+                            <WordCard targetWord={targetWord}></WordCard>
                             <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
                         </div>
                     }
@@ -71,7 +61,7 @@ export default function collectionDetailComponent({ targetWord, showModal, setSh
                             }
                         </ListGroup>
                     </div>
-                </Modal.Body>
+                </Modal.Body >
             </Modal >
         </>
     )
