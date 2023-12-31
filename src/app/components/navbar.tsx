@@ -5,7 +5,7 @@ export default function NavBar() {
     return (
         <Navbar fluid rounded>
             <NavbarBrand as={Link} href="/">
-                <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">lexa</span>
+                <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">lexiconnect</span>
             </NavbarBrand>
             <NavbarToggle />
             <NavbarCollapse>

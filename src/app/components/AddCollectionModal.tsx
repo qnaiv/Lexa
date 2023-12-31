@@ -60,7 +60,7 @@ export default function collectionDetailComponent({ targetWord, showModal, setSh
                         </div>
                     }
                     <p>追加するコレクション</p>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center mt-2">
                         <ListGroup className="w-full">
                             {
                                 collections.map(coll => {

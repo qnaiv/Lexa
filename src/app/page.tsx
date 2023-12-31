@@ -6,6 +6,7 @@ import GooRepository from "@/repository/GooRepository";
 import WikipediaRepository from "@/repository/WikipediaRepository";
 import { Word } from "@/app/types";
 import AddCollectionModal from "@/app/components/AddCollectionModal";
+import { HiOutlineBookmark } from "react-icons/hi";
 
 
 export default function Search() {
@@ -29,7 +30,8 @@ export default function Search() {
     doSearch(word);
   }
 
-  async function doSearch(seearchText: string): Promise<void> {
+  async function doSearch(searchText: string): Promise<void> {
+    if (!searchText) return;
     // Spinner描画
     setIsSearching(true);
 
@@ -37,13 +39,13 @@ export default function Search() {
     setResult([]);
 
     // 履歴追加
-    if (!searchHistory.some(item => item === seearchText)) {
-      setSearchHistory([...searchHistory, seearchText]);
+    if (!searchHistory.some(item => item === searchText)) {
+      setSearchHistory([...searchHistory, searchText]);
     }
 
-    const kotobankResult = new KotobankRepository().search(seearchText);
-    const gooResult = new GooRepository().search(seearchText);
-    const wikipediaResult = new WikipediaRepository().search(seearchText);
+    const kotobankResult = new KotobankRepository().search(searchText);
+    const gooResult = new GooRepository().search(searchText);
+    const wikipediaResult = new WikipediaRepository().search(searchText);
 
     const searchResults = await Promise.all([kotobankResult, gooResult, wikipediaResult]);
     setResult(searchResults);
@@ -77,11 +79,13 @@ export default function Search() {
                         <li key={item.dictionary} className="py-3 sm:py-4">
                           <div className="flex space-x-4">
                             <div className="flex-1">
-                              <p className="break-all">{item.meaning}</p>
+                              <p className="break-all text-sm">{item.meaning}</p>
                             </div>
                             <div className="flex-none w-16">
-                              <a href={item.url} target="_blank">{item.dictionary}</a>
-                              <p onClick={() => onClickAddCollectionButton(item)}>追加</p>
+                              <a className="text-sm text-blue-500" href={item.url} target="_blank">{item.dictionary}</a>
+                              <p onClick={() => onClickAddCollectionButton(item)}>
+                                <HiOutlineBookmark className={"mt-2"} size={20} />
+                              </p>
                             </div>
                           </div>
                         </li>
