@@ -5,6 +5,7 @@ import { Collection } from "@/app/types";
 import { useRecoilState } from "recoil";
 import { collectionState } from "@/app/state/collectionState";
 import Link from "next/link";
+import { HiOutlinePlus, HiOutlineTrash } from "react-icons/hi";
 
 export default function Collection() {
     const [showModal, setShowModal] = useState<boolean>(false);
@@ -25,6 +26,10 @@ export default function Collection() {
         setShowModal(false);
     }
 
+    function onClickTrashButton(collectionId: string | undefined): void {
+        if (!collectionId) return;
+        setCollections(collections.filter(coll => coll.id !== collectionId));
+    }
     return (
         <>
             <div className="container mx-auto md:w-8/12 sm:w-full">
@@ -33,9 +38,9 @@ export default function Collection() {
                         <p>
                             コレクション
                         </p>
-                        <div onClick={onClickAddButton}>
-                            + 新規
-                        </div>
+                        <Button pill onClick={onClickAddButton}>
+                            <HiOutlinePlus></HiOutlinePlus>
+                        </Button>
                     </div>
                     <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                         {
@@ -45,6 +50,9 @@ export default function Collection() {
                                         <div className="flex space-x-4">
                                             <div className="flex-1">
                                                 <Link href={`collection/detail?collection=${item.id}`}>{item.name}</Link>
+                                            </div>
+                                            <div onClick={() => { onClickTrashButton(item.id) }}>
+                                                <HiOutlineTrash></HiOutlineTrash>
                                             </div>
                                         </div>
                                     </li>
@@ -58,8 +66,8 @@ export default function Collection() {
                 <Modal.Header />
                 <Modal.Body>
                     コレクション名
-                    <TextInput value={collectionInputText} onChange={onChangeCollectionInput}></TextInput>
-                    <Button onClick={onClickOkButton}>検索</Button>
+                    <TextInput className="mt-2" value={collectionInputText} onChange={onChangeCollectionInput}></TextInput>
+                    <Button className="mt-2" onClick={onClickOkButton}>検索</Button>
                 </Modal.Body>
             </Modal>
         </>
