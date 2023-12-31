@@ -9,7 +9,7 @@ export default function WordCard({ targetWord }: Props) {
     return <>
         <Card className="bg-neutral-50">
             <div className="flex justify-between">
-                <p className="text-sm">
+                <p className="text-md">
                     {targetWord.word}
                 </p>
                 <a className="dictionary-link" href={targetWord.url} target="_blank">
@@ -17,7 +17,7 @@ export default function WordCard({ targetWord }: Props) {
                 </a>
 
             </div>
-            <p className="text-xs">
+            <p className="text-sm">
                 {targetWord.meaning}
             </p>
         </Card>

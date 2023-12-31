@@ -33,17 +33,6 @@ export default function collectionDetailComponent() {
                                         <div key={item.id} className="mb-5">
                                             <WordCard targetWord={item}></WordCard>
                                         </div>
-                                        // <li key={item.dictionary} className="py-3 sm:py-4">
-                                        //     <div className="font-bold">{item.word}</div>
-                                        //     <div className="flex space-x-4">
-                                        //         <div className="flex-1 text-sm">
-                                        //             <p className="break-all">{item.meaning}</p>
-                                        //         </div>
-                                        //         <div className="flex-none w-16 text-sm text-blue-500">
-                                        //             <a href={item.url} target="_blank">{item.dictionary}</a>
-                                        //         </div>
-                                        //     </div>
-                                        // </li>
                                     )
                                 })
                             }
