@@ -61,7 +61,7 @@ export default function Search() {
   return (
     <>
 
-      <div className="container mx-auto md:w-8/12 sm:w-full">
+      <div className="container mx-auto md:w-8/12 sm:w-full mb-5">
         <Card className="mt-5">
           <TextInput value={condition} onChange={onChangeCondition}></TextInput>
           <Button onClick={onClickSearchButton}>検索</Button>

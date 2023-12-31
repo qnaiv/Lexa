@@ -3,21 +3,17 @@
 import { collectionState } from "@/app/state/collectionState";
 import { Collection } from "@/app/types";
 import { Card } from "flowbite-react";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useRecoilState } from "recoil";
 
-interface PageProps {
-    params: {
-        collectionId: string
-    }
-}
 
-export default function collectionDetailComponent({ params }: PageProps) {
+export default function collectionDetailComponent() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [wordInputText, setWordInputText] = useState<string>('');
+    const collectionId = useSearchParams().get('collection');
+
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [collections, setCollections] = useRecoilState(collectionState);
-    const targetCollection: Collection | undefined = collections.find((coll: Collection) => coll.id === params.collectionId);
+    const targetCollection: Collection | undefined = collections.find((coll: Collection) => coll.id === collectionId);
 
     function onClickAddButton(): void {
         throw new Error("Function not implemented.");

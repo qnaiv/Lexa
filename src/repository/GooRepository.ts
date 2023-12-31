@@ -20,6 +20,7 @@ export default class GooRepository {
 
         if (response.status !== 200) {
             return {
+                id: query + DICTIONARY.GOO,
                 word: query,
                 url: searchUrl,
                 dictionary: DICTIONARY.GOO,
@@ -35,6 +36,7 @@ export default class GooRepository {
         });
 
         return {
+            id: query + DICTIONARY.GOO,
             word: query,
             meaning,
             url: searchUrl,

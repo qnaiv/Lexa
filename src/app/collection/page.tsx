@@ -44,7 +44,7 @@ export default function Collection() {
                                     <li key={item.id} className="py-3 sm:py-4">
                                         <div className="flex space-x-4">
                                             <div className="flex-1">
-                                                <Link href={`collection/${item.name}`}>{item.name}</Link>
+                                                <Link href={`collection/detail?collection=${item.id}`}>{item.name}</Link>
                                             </div>
                                         </div>
                                     </li>

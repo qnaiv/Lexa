@@ -17,6 +17,7 @@ export default class WikipediaRepository {
 
         if (response.status !== 200) {
             return {
+                id: query + DICTIONARY.WIKIPEDIA,
                 word: query,
                 url: searchUrl,
                 dictionary: DICTIONARY.WIKIPEDIA,
@@ -33,6 +34,7 @@ export default class WikipediaRepository {
         }
 
         return {
+            id: query + DICTIONARY.WIKIPEDIA,
             word: query,
             meaning,
             url: searchUrl,

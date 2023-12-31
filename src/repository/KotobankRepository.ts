@@ -15,6 +15,7 @@ export default class KotobankRepository {
 
         if (response.status !== 200) {
             return {
+                id: query + DICTIONARY.KOTOBANK,
                 word: query,
                 url: searchUrl,
                 dictionary: DICTIONARY.KOTOBANK,
@@ -25,6 +26,7 @@ export default class KotobankRepository {
         let meaning = $('meta[name="description"]').attr('content');
 
         return {
+            id: query + DICTIONARY.KOTOBANK,
             word: query,
             meaning,
             url: searchUrl,
