@@ -5,4 +5,4 @@ export const DICTIONARY = {
     ORIGINAL: 'カスタム',
 } as const;
 
-export const PROXY_URL = process.env.NEXT_PUBLIC_PROXY_URL ?? '';
+export const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
