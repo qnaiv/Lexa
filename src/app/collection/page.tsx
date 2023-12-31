@@ -1,10 +1,10 @@
 'use client'
 import { Button, Card, Modal, TextInput } from "flowbite-react";
 import { ChangeEvent, useState } from "react";
-import { Collection } from "./types";
+import { Collection } from "@/app/types";
 import { useRecoilState } from "recoil";
+import { collectionState } from "@/app/state/collectionState";
 import Link from "next/link";
-import { collectionState } from "../state/collectionState";
 
 export default function Collection() {
     const [showModal, setShowModal] = useState<boolean>(false);
@@ -33,9 +33,9 @@ export default function Collection() {
                         <p>
                             コレクション
                         </p>
-                        <a onClick={onClickAddButton}>
+                        <div onClick={onClickAddButton}>
                             + 新規
-                        </a>
+                        </div>
                     </div>
                     <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                         {
@@ -44,7 +44,7 @@ export default function Collection() {
                                     <li key={item.id} className="py-3 sm:py-4">
                                         <div className="flex space-x-4">
                                             <div className="flex-1">
-                                                <Link href={`collection/${item.id}`}>{item.name}</Link>
+                                                <Link href={`collection/${item.name}`}>{item.name}</Link>
                                             </div>
                                         </div>
                                     </li>
@@ -58,7 +58,7 @@ export default function Collection() {
                 <Modal.Header />
                 <Modal.Body>
                     コレクション名
-                    <TextInput value={collectionInputText} onChange={onChangeCollectionInput} className="mb-2"></TextInput>
+                    <TextInput value={collectionInputText} onChange={onChangeCollectionInput}></TextInput>
                     <Button onClick={onClickOkButton}>検索</Button>
                 </Modal.Body>
             </Modal>

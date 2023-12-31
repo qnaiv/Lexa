@@ -4,8 +4,8 @@ import { ChangeEvent, useState } from "react"
 import KotobankRepository from "@/repository/KotobankRepository";
 import GooRepository from "@/repository/GooRepository";
 import WikipediaRepository from "@/repository/WikipediaRepository";
-import { Word } from "./types";
-import AddCollectionModal from "./components/AddCollectionModal";
+import { Word } from "@/app/types";
+import AddCollectionModal from "@/app/components/AddCollectionModal";
 
 
 export default function Search() {

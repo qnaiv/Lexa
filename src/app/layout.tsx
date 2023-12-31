@@ -1,8 +1,8 @@
 'use client'
 
-import './globals.css'
+import '@/app/globals.css'
 import { Inter } from 'next/font/google'
-import NavBar from './components/navbar'
+import NavBar from '@/app/components/navbar'
 import { RecoilRoot } from 'recoil'
 
 
