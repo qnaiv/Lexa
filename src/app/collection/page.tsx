@@ -2,15 +2,17 @@
 import { Button, Card, Modal, TextInput } from "flowbite-react";
 import { ChangeEvent, useState } from "react";
 import { Collection } from "@/app/types";
-import { useRecoilState } from "recoil";
-import { collectionState } from "@/app/state/collectionState";
+import { useCollectionState } from "@/app/state/collectionState";
 import Link from "next/link";
 import { HiOutlinePlus, HiOutlineTrash } from "react-icons/hi";
 
+export const dynamic = "force-dynamic";
+
 export default function Collection() {
+
     const [showModal, setShowModal] = useState<boolean>(false);
     const [collectionInputText, setCollectionInputText] = useState<string>('');
-    const [collections, setCollections] = useRecoilState(collectionState);
+    const [collections, setCollections] = useCollectionState();
 
     function onClickAddButton(): void {
         setShowModal(true);
@@ -44,20 +46,22 @@ export default function Collection() {
                     </div>
                     <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                         {
-                            collections.map(item => {
-                                return (
-                                    <li key={item.id} className="py-3 sm:py-4">
-                                        <div className="flex space-x-4">
-                                            <div className="flex-1">
-                                                <Link href={`collection/detail?collection=${item.id}`}>{item.name}</Link>
+                            collections.length == 0 ? (<div>コレクションがありません。</div>) : (
+                                collections.map(item => {
+                                    return (
+                                        <li key={item.id} className="py-3 sm:py-4">
+                                            <div className="flex space-x-4">
+                                                <div className="flex-1">
+                                                    <Link href={`collection/detail?collection=${item.id}`}>{item.name}</Link>
+                                                </div>
+                                                <div onClick={() => { onClickTrashButton(item.id) }}>
+                                                    <HiOutlineTrash></HiOutlineTrash>
+                                                </div>
                                             </div>
-                                            <div onClick={() => { onClickTrashButton(item.id) }}>
-                                                <HiOutlineTrash></HiOutlineTrash>
-                                            </div>
-                                        </div>
-                                    </li>
-                                )
-                            })
+                                        </li>
+                                    )
+                                })
+                            )
                         }
                     </ul>
                 </Card>
