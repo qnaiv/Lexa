@@ -1,8 +1,8 @@
 'use client'
-import { Button, Card, Modal, TextInput } from "flowbite-react";
+import { Badge, Button, Card, Modal, TextInput } from "flowbite-react";
 import { ChangeEvent, useState } from "react";
 import { Collection } from "@/app/types";
-import { useCollectionState } from "@/app/state/collectionState";
+import { CollectionEntity, useCollectionState } from "@/state/collectionState";
 import Link from "next/link";
 import { HiOutlinePlus, HiOutlineTrash } from "react-icons/hi";
 
@@ -23,15 +23,11 @@ export default function Collection() {
     }
 
     function onClickOkButton(): void {
-        setCollections([...collections, { id: crypto.randomUUID(), name: collectionInputText, words: [] }]);
+        setCollections([...collections, new CollectionEntity({ id: crypto.randomUUID(), name: collectionInputText, words: [] })]);
         setCollectionInputText('');
         setShowModal(false);
     }
 
-    function onClickTrashButton(collectionId: string | undefined): void {
-        if (!collectionId) return;
-        setCollections(collections.filter(coll => coll.id !== collectionId));
-    }
     return (
         <>
             <div className="container mx-auto md:w-8/12 sm:w-full">
@@ -54,9 +50,7 @@ export default function Collection() {
                                                 <div className="flex-1">
                                                     <Link href={`collection/detail?collection=${item.id}`}>{item.name}</Link>
                                                 </div>
-                                                <div onClick={() => { onClickTrashButton(item.id) }}>
-                                                    <HiOutlineTrash></HiOutlineTrash>
-                                                </div>
+                                                <Badge color="gray">{item.words?.length}</Badge>
                                             </div>
                                         </li>
                                     )

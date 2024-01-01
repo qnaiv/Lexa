@@ -1,11 +1,10 @@
 'use client'
 
-import { Card, ListGroup, Modal } from "flowbite-react"
-import { Word } from "../types"
+import { ListGroup, Modal } from "flowbite-react"
+import { Word } from "../app/types"
 import { useRecoilState } from "recoil";
-import { collectionState } from "../state/collectionState";
-import Link from "next/link";
 import WordCard from "./WordCard";
+import { useCollectionState } from "@/state/collectionState";
 
 interface PageProps {
     targetWord: Word,
@@ -15,26 +14,17 @@ interface PageProps {
 
 export default function collectionDetailComponent({ targetWord, showModal, setShowModal }: PageProps) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [collections, setCollections] = useRecoilState(collectionState);
+    const [collections, setCollections] = useCollectionState();
 
     function onCollectionClick(collectionId: string | undefined): void {
-        if (!collectionId) {
-            console.log('error!');
-            return;
-        }
+        if (!collectionId || !targetWord) return;
 
-        const newCollections = collections.map((coll) => {
-            if (!coll.words) return coll;
-
+        collections.map(coll => {
             if (coll.id === collectionId) {
-                const newWords = [...coll.words];
-                newWords.push(targetWord);
-                coll.words = newWords
+                coll.words?.push(targetWord);
             }
             return coll;
         });
-
-        setCollections(newCollections);
         setShowModal(false);
     }
 

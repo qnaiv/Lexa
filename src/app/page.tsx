@@ -1,17 +1,18 @@
 'use client'
 import { Button, Card, Modal, Spinner, TextInput } from "flowbite-react";
 import { ChangeEvent, useState } from "react"
-import KotobankRepository from "@/repository/KotobankRepository";
-import GooRepository from "@/repository/GooRepository";
-import WikipediaRepository from "@/repository/WikipediaRepository";
+import KotobankRepository from "@/api/KotobankRepository";
+import GooRepository from "@/api/GooRepository";
+import WikipediaRepository from "@/api/WikipediaRepository";
 import { Word } from "@/app/types";
-import AddCollectionModal from "@/app/components/AddCollectionModal";
+import AddCollectionModal from "@/components/AddCollectionModal";
 import { HiOutlineBookmark } from "react-icons/hi";
+import { useHistoryState } from "../state/historyState";
 
 
 export default function Search() {
   const [condition, setCondition] = useState<string>('');
-  const [searchHistory, setSearchHistory] = useState<Array<string>>([]);
+  const [searchHistory, setSearchHistory] = useHistoryState();
   const [result, setResult] = useState<Array<Word>>([]);
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -40,7 +41,9 @@ export default function Search() {
 
     // 履歴追加
     if (!searchHistory.some(item => item === searchText)) {
-      setSearchHistory([...searchHistory, searchText]);
+      const newHistories = [searchText, ...searchHistory];
+      if (newHistories.length > 10) newHistories.pop();
+      setSearchHistory(newHistories);
     }
 
     const kotobankResult = new KotobankRepository().search(searchText);
@@ -107,7 +110,7 @@ export default function Search() {
               検索履歴
               {
                 searchHistory.map((word) => {
-                  return <p key={word} onClick={() => onClickHistory(word)}>{word}</p>
+                  return <a key={word} onClick={() => onClickHistory(word)}>{word}</a>
                 })
               }
             </Card>
