@@ -40,6 +40,7 @@ export default function Search() {
 
     // 検索結果を初期化
     setResult([]);
+    setSimilarWords([]);
 
     // 履歴追加
     if (!searchHistory.some(item => item === searchText)) {
@@ -48,22 +49,21 @@ export default function Search() {
       setSearchHistory(newHistories);
     }
 
+    // 検索実行
     const kotobankResult = new KotobankRepository().search(searchText);
     const gooResult = new GooRepository().search(searchText);
     const wikipediaResult = new WikipediaRepository().search(searchText);
-    const weblioResult = new WeblioRepository().searchThesaurus(searchText);
-
-    const searchResults = await Promise.all([kotobankResult, gooResult, wikipediaResult]);
-    console.log(searchResults);
-
+    const weblioejjeResult = new WeblioRepository().ejjeSearch(searchText);
+    const searchResults = await Promise.all([kotobankResult, gooResult, wikipediaResult, weblioejjeResult]);
     setResult(searchResults);
 
-    weblioResult.then(res => {
-      console.log("res");
-      console.log(res);
-
+    // 類似検索
+    const thesaurusResult = new WeblioRepository().searchThesaurus(searchText);
+    thesaurusResult.then(res => {
       setSimilarWords(res);
     })
+
+    // Spinner描画解除
     setIsSearching(false);
 
   }

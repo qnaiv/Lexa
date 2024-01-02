@@ -6,10 +6,39 @@ export default class WeblioRepository {
 
     }
 
-    url = 'https://thesaurus.weblio.jp/content/';
+    thesaurusUrl = 'https://thesaurus.weblio.jp/content/';
+    ejjeUrl = 'https://ejje.weblio.jp/content/';
+
+    async ejjeSearch(query: string): Promise<any> {
+        const searchUrl = this.ejjeUrl + query;
+
+        const response = await fetch(PROXY_URL + searchUrl);
+
+        if (response.status !== 200) {
+            return {
+
+            }
+        }
+
+        const $ = cheerio.load(await response.text());
+
+
+        const explanationElm = $('.content-explanation');
+        console.log(explanationElm);
+        if (!explanationElm) {
+            return;
+        }
+        return {
+            id: query + DICTIONARY.WEBLIOEJJE,
+            word: query,
+            meaning: explanationElm.text(),
+            url: searchUrl,
+            dictionary: DICTIONARY.WEBLIOEJJE,
+        };
+    }
 
     async searchThesaurus(query: string): Promise<any> {
-        const searchUrl = this.url + query;
+        const searchUrl = this.thesaurusUrl + query;
 
         const response = await fetch(PROXY_URL + searchUrl);
 
