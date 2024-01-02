@@ -1,16 +1,18 @@
 'use client'
-import { Button, Card, Modal } from "flowbite-react";
+import { Card } from "flowbite-react";
 import { Word } from "@/app/types";
-import { HiDotsHorizontal, HiOutlineExclamationCircle, HiOutlineTrash } from "react-icons/hi";
+import { HiOutlineTrash } from "react-icons/hi";
 import { useState } from "react";
+import { ConfirmDeleteModal } from "./ConfirmDeleteModal";
 
 type Props = {
+    isEditable?: boolean,
     targetWord: Word,
     onDelete?: () => void
 }
 
 
-export default function WordCard({ targetWord, onDelete }: Props) {
+export default function WordCard({ isEditable, targetWord, onDelete }: Props) {
     const [showModal, setShowModal] = useState<boolean>(false);
 
     function onDeleteClick() {
@@ -24,43 +26,36 @@ export default function WordCard({ targetWord, onDelete }: Props) {
 
     }
     return <>
-        <Card className="bg-neutral-50">
+        <Card className="bg-neutral-50 w-full">
             <div className="flex justify-end items-center">
                 <p className="text-md mr-auto">
                     {targetWord.word}
                 </p>
-                <div>
-                    <HiOutlineTrash onClick={onDeleteClick}></HiOutlineTrash>
-                </div>
+                {
+                    isEditable ?
+                        (<a onClick={onDeleteClick}>
+                            <HiOutlineTrash></HiOutlineTrash>
+                        </a>)
+                        : (<></>)
+                }
 
             </div>
             <p className="text-sm">
                 {targetWord.meaning}
             </p>
             <p className="mr-2 text-right">
-                <a className="dictionary-link" href={targetWord.url} target="_blank">
-                    {targetWord.dictionary}
-                </a>
+                {
+                    targetWord.url ? (
+                        <a className="dictionary-link" href={targetWord.url} target="_blank">
+                            {targetWord.dictionary}
+                        </a>
+
+                    ) : (
+                        <p>{targetWord.dictionary}</p>
+                    )
+                }
             </p>
         </Card>
-        <Modal show={showModal} size="md" onClose={() => setShowModal(false)} popup>
-            <Modal.Header />
-            <Modal.Body>
-                <div className="text-center">
-                    <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
-                    <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                        削除してもよろしいですか？
-                    </h3>
-                    <div className="flex justify-center gap-4">
-                        <Button color="failure" onClick={doDelete}>
-                            Yes
-                        </Button>
-                        <Button color="gray" onClick={() => setShowModal(false)}>
-                            No
-                        </Button>
-                    </div>
-                </div>
-            </Modal.Body>
-        </Modal>
+        <ConfirmDeleteModal showModal={showModal} setShowModal={setShowModal} doDelete={doDelete} />
     </>
 }

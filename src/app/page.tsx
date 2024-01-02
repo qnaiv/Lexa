@@ -86,9 +86,9 @@ export default function Search() {
                             </div>
                             <div className="flex-none w-16">
                               <a className="dictionary-link" href={item.url} target="_blank">{item.dictionary}</a>
-                              <p onClick={() => onClickAddCollectionButton(item)}>
+                              <a onClick={() => onClickAddCollectionButton(item)}>
                                 <HiOutlineBookmark className={"mt-2"} size={20} />
-                              </p>
+                              </a>
                             </div>
                           </div>
                         </li>

@@ -65,7 +65,7 @@ export default function Collection() {
                 <Modal.Body>
                     コレクション名
                     <TextInput className="mt-2" value={collectionInputText} onChange={onChangeCollectionInput}></TextInput>
-                    <Button className="mt-2" onClick={onClickOkButton}>検索</Button>
+                    <Button className="mt-2" onClick={onClickOkButton}>作成</Button>
                 </Modal.Body>
             </Modal>
         </>
