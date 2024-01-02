@@ -11,9 +11,8 @@ export default class WeblioRepository {
 
     async ejjeSearch(query: string): Promise<any> {
         const searchUrl = this.ejjeUrl + query;
-
         const response = await fetch(PROXY_URL + searchUrl);
-
+        // 正常なレスポンスが返ってこなかった場合は終了
         if (response.status !== 200) {
             return {
 
@@ -21,17 +20,18 @@ export default class WeblioRepository {
         }
 
         const $ = cheerio.load(await response.text());
-
-
         const explanationElm = $('.content-explanation');
         const explanationMobileElm = $('.explanation');
+
+        // PCでもモバイルでも説明欄が存在しない場合は終了
         if (!explanationElm && !explanationMobileElm) {
             return;
         }
+
         return {
             id: query + DICTIONARY.WEBLIOEJJE,
             word: query,
-            meaning: explanationElm.text() ?? explanationMobileElm.text(),
+            meaning: explanationElm.text() || explanationMobileElm.text(),
             url: searchUrl,
             dictionary: DICTIONARY.WEBLIOEJJE,
         };
