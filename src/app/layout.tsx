@@ -17,6 +17,7 @@ export default function RootLayout({
     <RecoilRoot>
       <html lang="ja">
         <head>
+          <title>lexicollect</title>
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
         </head>
         <body className={inter.className}>

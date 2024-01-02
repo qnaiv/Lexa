@@ -2,7 +2,7 @@ import { DICTIONARY, PROXY_URL } from '@/app/consts';
 import { Word } from '@/app/types';
 import * as cheerio from 'cheerio';
 
-export default class GooRepository {
+export default class GooApi {
     constructor() {
 
     }

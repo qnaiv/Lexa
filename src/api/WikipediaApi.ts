@@ -1,7 +1,7 @@
 import { DICTIONARY, PROXY_URL } from '@/app/consts';
 import * as cheerio from 'cheerio';
 
-export default class WikipediaRepository {
+export default class WikipediaApi {
     constructor() {
 
     }

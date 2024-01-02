@@ -1,7 +1,7 @@
 import { DICTIONARY, PROXY_URL } from '@/app/consts';
 import * as cheerio from 'cheerio';
 
-export default class KotobankRepository {
+export default class KotobankApi {
     constructor() {
 
     }

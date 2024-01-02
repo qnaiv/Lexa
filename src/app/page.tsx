@@ -1,14 +1,14 @@
 'use client'
 import { Badge, Button, Card, Modal, Spinner, TextInput } from "flowbite-react";
 import { ChangeEvent, useState } from "react"
-import KotobankRepository from "@/api/KotobankRepository";
-import GooRepository from "@/api/GooRepository";
-import WikipediaRepository from "@/api/WikipediaRepository";
+import KotobankApi from "@/api/KotobankApi";
+import GooApi from "@/api/GooApi";
+import WikipediaApi from "@/api/WikipediaApi";
 import { Word } from "@/app/types";
 import AddCollectionModal from "@/components/AddCollectionModal";
 import { HiOutlineBookmark } from "react-icons/hi";
 import { useHistoryState } from "../state/historyState";
-import WeblioRepository from "@/api/WeblioRepository";
+import WeblioApi from "@/api/WeblioApi";
 
 
 export default function Search() {
@@ -50,15 +50,15 @@ export default function Search() {
     }
 
     // 検索実行
-    const kotobankResult = new KotobankRepository().search(searchText);
-    const gooResult = new GooRepository().search(searchText);
-    const wikipediaResult = new WikipediaRepository().search(searchText);
-    const weblioejjeResult = new WeblioRepository().ejjeSearch(searchText);
+    const kotobankResult = new KotobankApi().search(searchText);
+    const gooResult = new GooApi().search(searchText);
+    const wikipediaResult = new WikipediaApi().search(searchText);
+    const weblioejjeResult = new WeblioApi().ejjeSearch(searchText);
     const searchResults = await Promise.all([kotobankResult, gooResult, wikipediaResult, weblioejjeResult]);
     setResult(searchResults);
 
     // 類似検索
-    const thesaurusResult = new WeblioRepository().searchThesaurus(searchText);
+    const thesaurusResult = new WeblioApi().searchThesaurus(searchText);
     thesaurusResult.then(res => {
       setSimilarWords(res);
     })
