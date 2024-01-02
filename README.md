@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# アプリ概要
+コレクション（単語帳）を作成し、単語とその意味を登録できる。
+単語の登録は自分で定義するか、検索画面で検索した結果を登録できる。
 
-## Getting Started
+活用例
+- 読書時の分からない単語メモに。
+ - 本ごとにコレクションを作成し、分からない単語を検索して登録していく。後で一覧で見直すことができる。
 
-First, run the development server:
+# 利用技術
+- next.js(フロントエンドフレームワーク)
+- recoil(状態管理ライブラリ)
+- cheerio(スクレイピング)
+- cors anywhere(cors対策)
+- render.com(cors anywhereサーバのホスティング)
+- github pages(本アプリのホスティング)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# 行き詰まったポイント
+## recoilを永続化させる
+recoil-persistというlocalstorageを使うためのライブラリがあるが、これを使うと以下のようなエラーが起きた。
 ```
+Error: Hydration failed because the initial UI does not match what was rendered on the server
+```
+以下の記事を参考に解決した。(localstorageを使わず手動で実装した。hookを作成した。)
+https://techblg.app/articles/how-to-persist-data-on-recoli/
+> atomのuseRecoilStateを直接提供せずに、custom hooksを使ってdomがmountされた後に、recoilの値を参照するようにしないといけません。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## cors anywhere
+cors対策としてcors anywhereを導入した。
+開発中は https://cors-anywhere.herokuapp.com/ を使えば一時的にcorsをすり抜けられるが、デプロイ後に実際に利用するときは自前でcors anywhereをホスティングする必要があった。なので、renderを用いた。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+renderは15分リクエストがないとサーバが停止してしまうため、 https://uptimerobot.com/ で定期的にリクエストを送ることでスリープを防止した。
