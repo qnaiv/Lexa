@@ -24,14 +24,14 @@ export default class WeblioRepository {
 
 
         const explanationElm = $('.content-explanation');
-        console.log(explanationElm);
-        if (!explanationElm) {
+        const explanationMobileElm = $('.explanation');
+        if (!explanationElm && !explanationMobileElm) {
             return;
         }
         return {
             id: query + DICTIONARY.WEBLIOEJJE,
             word: query,
-            meaning: explanationElm.text(),
+            meaning: explanationElm.text() ?? explanationMobileElm.text(),
             url: searchUrl,
             dictionary: DICTIONARY.WEBLIOEJJE,
         };
