@@ -28,7 +28,7 @@ export default function WordCard({ isEditable, targetWord, onDelete }: Props) {
     return <>
         <Card className="bg-neutral-50 w-full">
             <div className="flex justify-end items-center">
-                <p className="text-md mr-auto">
+                <p className="text-md font-bold mr-auto">
                     {targetWord.word}
                 </p>
                 {

@@ -78,12 +78,12 @@ export default function collectionDetailComponent() {
                         <p className="text-xl font-bold">{targetCollection?.name}</p>
                         <div className="ml-5">
                             <a onClick={onClickCreateCustomWordButton}>
-                                <HiOutlinePlusCircle></HiOutlinePlusCircle>
+                                <HiOutlinePlusCircle size={20}></HiOutlinePlusCircle>
                             </a>
                         </div>
                         <div className="ml-auto">
                             <a onClick={onClickCollectionDeleteButton}>
-                                <HiOutlineTrash></HiOutlineTrash>
+                                <HiOutlineTrash size={20}></HiOutlineTrash>
                             </a>
                         </div>
                     </div>

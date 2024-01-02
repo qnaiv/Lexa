@@ -4,7 +4,7 @@ import { ChangeEvent, useState } from "react";
 import { Collection } from "@/app/types";
 import { CollectionEntity, useCollectionState } from "@/state/collectionState";
 import Link from "next/link";
-import { HiOutlinePlus, HiOutlineTrash } from "react-icons/hi";
+import { HiOutlinePlus, HiOutlinePlusCircle, HiOutlineTrash } from "react-icons/hi";
 
 export const dynamic = "force-dynamic";
 
@@ -36,9 +36,9 @@ export default function Collection() {
                         <p>
                             コレクション
                         </p>
-                        <Button pill onClick={onClickAddButton}>
-                            <HiOutlinePlus></HiOutlinePlus>
-                        </Button>
+                        <a onClick={onClickAddButton}>
+                            <HiOutlinePlusCircle size={20}></HiOutlinePlusCircle>
+                        </a>
                     </div>
                     <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                         {

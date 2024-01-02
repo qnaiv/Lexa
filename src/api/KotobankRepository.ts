@@ -14,12 +14,7 @@ export default class KotobankRepository {
         const response = await fetch(PROXY_URL + searchUrl);
 
         if (response.status !== 200) {
-            return {
-                id: query + DICTIONARY.KOTOBANK,
-                word: query,
-                url: searchUrl,
-                dictionary: DICTIONARY.KOTOBANK,
-            }
+            return {}
         }
 
         const $ = cheerio.load(await response.text());
