@@ -1,18 +1,19 @@
 'use client'
 import { Card } from "flowbite-react";
 import { Word } from "@/app/types";
-import { HiOutlineTrash } from "react-icons/hi";
+import { HiOutlineDocumentText, HiOutlineTrash } from "react-icons/hi";
 import { useState } from "react";
 import { ConfirmDeleteModal } from "./ConfirmDeleteModal";
 
 type Props = {
     isEditable?: boolean,
     targetWord: Word,
-    onDelete?: () => void
+    onDelete?: () => void,
+    onClickRemarks?: () => void
 }
 
 
-export default function WordCard({ isEditable, targetWord, onDelete }: Props) {
+export default function WordCard({ isEditable, targetWord, onDelete, onClickRemarks }: Props) {
     const [showModal, setShowModal] = useState<boolean>(false);
 
     function onDeleteClick() {
@@ -43,18 +44,29 @@ export default function WordCard({ isEditable, targetWord, onDelete }: Props) {
             <p className="text-sm">
                 {targetWord.meaning}
             </p>
-            <p className="mr-2 text-right">
+            <div className="flex justify-between">
                 {
-                    targetWord.url ? (
-                        <a className="dictionary-link" href={targetWord.url} target="_blank">
-                            {targetWord.dictionary}
-                        </a>
-
+                    targetWord.remarks ? (
+                        <div onClick={onClickRemarks}>
+                            <HiOutlineDocumentText></HiOutlineDocumentText>
+                        </div>
                     ) : (
-                        <p>{targetWord.dictionary}</p>
+                        <div></div>
                     )
                 }
-            </p>
+                <p className="mr-2">
+                    {
+                        targetWord.url ? (
+                            <a className="dictionary-link" href={targetWord.url} target="_blank">
+                                {targetWord.dictionary}
+                            </a>
+
+                        ) : (
+                            <p>{targetWord.dictionary}</p>
+                        )
+                    }
+                </p>
+            </div>
         </Card>
         <ConfirmDeleteModal showModal={showModal} setShowModal={setShowModal} doDelete={doDelete} />
     </>

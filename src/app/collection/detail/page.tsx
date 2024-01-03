@@ -2,8 +2,8 @@
 'use client'
 
 import WordCard from "@/components/WordCard";
-import { Collection } from "@/app/types";
-import { Card } from "flowbite-react";
+import { Collection, Word } from "@/app/types";
+import { Card, Modal } from "flowbite-react";
 import { useSearchParams } from "next/navigation";
 import { HiOutlinePlusCircle, HiOutlineTrash } from "react-icons/hi";
 import { useCollectionState } from "@/state/collectionState";
@@ -21,7 +21,8 @@ export default function collectionDetailComponent() {
     const [collections, setCollections] = useCollectionState();
     const [showCollectionDeleteModal, setShowCollectionDeleteModal] = useState<boolean>(false);
     const [showCreateCustomWordModal, setShowCreateCustomWordModal] = useState<boolean>(false);
-
+    const [showRemarksModal, setShowRemarksModal] = useState<boolean>(false);
+    const [targetWord, setTargetWord] = useState<Word | undefined>(undefined);
     const targetCollection: Collection | undefined = collections.find((coll: Collection) => coll.id === collectionId);
 
     function onClickCollectionDeleteButton(): void {
@@ -51,6 +52,7 @@ export default function collectionDetailComponent() {
     function onClickCreateCustomWordButton(): void {
         setShowCreateCustomWordModal(true);
     }
+
     function onCreateCustomWord({ word, meaning }: { word: string, meaning: string }): void {
 
         if (!collectionId) return;
@@ -68,6 +70,11 @@ export default function collectionDetailComponent() {
         });
         setCollections(newCollections);
         setShowCreateCustomWordModal(false);
+    }
+
+    function onClickRemarks(word: Word): void {
+        setShowRemarksModal(true);
+        setTargetWord(word);
     }
 
     return (
@@ -93,7 +100,7 @@ export default function collectionDetailComponent() {
                                 targetCollection?.words?.filter(item => item.meaning).map(item => {
                                     return (
                                         <div key={item.id} className="mb-5 flex justify-between">
-                                            <WordCard isEditable={true} targetWord={item} onDelete={() => onWordDelete(item.id)}></WordCard>
+                                            <WordCard isEditable={true} targetWord={item} onDelete={() => onWordDelete(item.id)} onClickRemarks={() => onClickRemarks(item)}></WordCard>
                                         </div>
                                     )
                                 })
@@ -104,6 +111,14 @@ export default function collectionDetailComponent() {
             </div>
             <ConfirmDeleteModal showModal={showCollectionDeleteModal} setShowModal={setShowCollectionDeleteModal} doDelete={onCollectionDelete} />
             <CreateCustomWordModal showModal={showCreateCustomWordModal} setShowModal={setShowCreateCustomWordModal} doCreate={onCreateCustomWord} />
+            <Modal show={showRemarksModal} size="md" onClose={() => setShowRemarksModal(false)} popup>
+                <Modal.Header />
+                <Modal.Body>
+                    <div>
+                        {targetWord?.remarks}
+                    </div>
+                </Modal.Body>
+            </Modal>
         </>
     )
 }

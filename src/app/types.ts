@@ -5,7 +5,7 @@ export type Word = {
     meaning?: string,
     url?: string,
     dictionary?: string,
-
+    remarks?: string,
 }
 
 export type Collection = {
