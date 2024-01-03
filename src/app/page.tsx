@@ -82,7 +82,7 @@ export default function Search() {
           <Button onClick={onClickSearchButton}>検索</Button>
           {searchHistory.length > 0 && (
             <div>
-              <p className="mt-2 text-sm">検索履歴</p>
+              <p className="mt-2 text-sm text-gray-600">検索履歴</p>
               <div className="flex flex-wrap">
                 {
                   searchHistory.map((word) => {
@@ -101,7 +101,9 @@ export default function Search() {
           {
             result.filter(item => item.dictionary).length > 0 ? (
               <>
-                検索結果
+                <p className="text-sm text-gray-600">
+                  検索結果
+                </p>
                 {isSearching ? (<Spinner></Spinner>) : (<></>)}
                 <div className="flow-root">
                   <ul className="divide-y divide-gray-200 dark:divide-gray-700">

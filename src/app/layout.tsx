@@ -1,12 +1,20 @@
-'use client'
-
 import '@/app/globals.css'
 import { Inter } from 'next/font/google'
 import NavBar from '@/components/navbar'
-import { RecoilRoot } from 'recoil'
+import { Metadata, Viewport } from 'next'
+import { Provider } from './provider'
 
 
 const inter = Inter({ subsets: ['latin'] })
+
+export const metadata: Metadata = {
+  title: 'Tangory',
+}
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+}
 
 export default function RootLayout({
   children,
@@ -14,20 +22,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <RecoilRoot>
-      <html lang="ja">
-        <head>
-          <title>lexicollect</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-        </head>
-        <body className={inter.className}>
-          <NavBar />
-          <div>
-            {children}
-          </div>
+    <html lang="ja">
+      {/* <body> */}
+      <body className={inter.className}>
+        <NavBar />
+        <Provider>
+          {children}
+        </Provider>
 
-        </body>
-      </html>
-    </RecoilRoot>
+      </body>
+    </html>
   )
 }

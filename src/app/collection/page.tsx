@@ -33,7 +33,7 @@ export default function Collection() {
             <div className="container mx-auto md:w-8/12 sm:w-full">
                 <Card className="mt-5">
                     <div className="flex justify-between">
-                        <p>
+                        <p className="text-sm text-gray-600">
                             コレクション
                         </p>
                         <a onClick={onClickAddButton}>

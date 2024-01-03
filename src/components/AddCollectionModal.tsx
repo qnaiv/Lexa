@@ -25,6 +25,7 @@ export default function collectionDetailComponent({ targetWord, showModal, setSh
             }
             return coll;
         });
+        setCollections(collections);
         setShowModal(false);
     }
 
