@@ -111,12 +111,10 @@ export default function collectionDetailComponent() {
             </div>
             <ConfirmDeleteModal showModal={showCollectionDeleteModal} setShowModal={setShowCollectionDeleteModal} doDelete={onCollectionDelete} />
             <CreateCustomWordModal showModal={showCreateCustomWordModal} setShowModal={setShowCreateCustomWordModal} doCreate={onCreateCustomWord} />
-            <Modal show={showRemarksModal} size="md" onClose={() => setShowRemarksModal(false)} popup>
+            <Modal dismissible show={showRemarksModal} size="md" onClose={() => setShowRemarksModal(false)} popup>
                 <Modal.Header />
                 <Modal.Body>
-                    <div>
-                        {targetWord?.remarks}
-                    </div>
+                    {targetWord?.remarks}
                 </Modal.Body>
             </Modal>
         </>

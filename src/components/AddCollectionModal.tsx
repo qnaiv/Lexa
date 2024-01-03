@@ -25,6 +25,7 @@ export default function collectionDetailComponent({ targetWord, showModal, setSh
         // 備考追加
         targetWord.remarks = remarks;
 
+        // コレクション保存
         collections.map(coll => {
             if (coll.id === collectionId) {
                 coll.words?.push(targetWord);
@@ -32,6 +33,11 @@ export default function collectionDetailComponent({ targetWord, showModal, setSh
             return coll;
         });
         setCollections(collections);
+
+        // 入力欄クリア
+        setRemarks('');
+
+        // モーダルを閉じる
         setShowModal(false);
     }
 
